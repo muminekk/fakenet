@@ -1,7 +1,5 @@
 name: build
 on: [push, workflow_dispatch]
-permissions:
-  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +13,7 @@ jobs:
         with:
           gradle-version: 8.12
       - run: gradle build
-      - uses: softprops/action-gh-release@v2
+      - uses: actions/upload-artifact@v4
         with:
-          tag_name: v${{ github.run_number }}
-          files: build/libs/fakenet-1.0.0.jar
+          name: fakenet-jar
+          path: build/libs/fakenet-1.0.0.jar
